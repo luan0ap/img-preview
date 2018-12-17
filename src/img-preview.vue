@@ -1,8 +1,8 @@
 <template>
-  <div class="img-preview">
+  <div class="img-preview" @click="handleClose">
     <div class="dialog-mask" v-if="url"></div>
     <transition name="dialog-fade">
-      <div class="dialog-box" v-if="url" @click="handleClose">
+      <div class="dialog-box" v-if="url && size.scale">
         <div class="dialog-img-box" :style="{width: `${size.width}px`, height: `${size.height}px`, transform: `translate(-50%, -50%) scale(${size.scale})`}">
           <img class="dialog-img" :src="url">
         </div>
@@ -27,13 +27,16 @@ export default {
     }
   },
   watch: {
-    url(val) {
-      let img = new Image()
-      img.src = val
+    url: {
+      handler(val) {
+        let img = new Image()
+        img.src = val
 
-      img.onload = () => {
-        this.size = computedSize(img)
-      }
+        img.onload = () => {
+          this.size = computedSize(img)
+        }
+      },
+      immediate: true
     }
   },
   data() {
