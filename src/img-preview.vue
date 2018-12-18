@@ -11,7 +11,7 @@
   </div>
 </template>
 <script>
-import computedSize from './utils'
+import {computedSize, canScroll} from './utils'
 export default {
   name: 'img-preview',
   model: {
@@ -29,6 +29,7 @@ export default {
   watch: {
     url: {
       handler(val) {
+        canScroll(this.url)
         let img = new Image()
         img.src = val
 
@@ -58,6 +59,9 @@ export default {
 </script>
 
 <style lang="stylus">
+.fem-dialog-hidden {
+  overflow: hidden;
+}
 .img-preview {
   .dialog-mask {
     position: fixed;

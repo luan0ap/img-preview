@@ -1,4 +1,6 @@
-export default function computedSize(img) {
+const CLASSNAME = 'fem-dialog-hidden'
+
+export function computedSize(img) {
   let w = window,
     d = document,
     e = d.documentElement,
@@ -24,4 +26,11 @@ export default function computedSize(img) {
     scale
   }
   return size
+}
+
+export function canScroll(url) {
+  let body = document.querySelector('body')
+  body.className = url
+    ? ` ${CLASSNAME}`
+    : body.className.replace(` ${CLASSNAME}`, '')
 }
